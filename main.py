@@ -1,5 +1,5 @@
 from data_handler import read_products, write_products
-from sorting import quick_sort
+from sorting import quick_sort, merge_sort
 
 def display_products(products):
     """Display a list of products in a readable format."""
@@ -12,7 +12,7 @@ def sorting_menu(products):
     while True:
         print("\nSorting Menu:")
         print("1. Quick Sort")
-        print("2. Merge Sort (not yet implemented)")
+        print("2. Merge Sort")
         print("3. Heap Sort (not yet implemented)")
         print("4. Back to Main Menu")
         choice = input("Select the sorting algorithm: ")
@@ -42,8 +42,33 @@ def sorting_menu(products):
                     break
                 else:
                     print("Invalid choice. Please try again.")
-        elif choice in ["2", "3"]:
-            print("Selected algorithm is not yet implemented.")
+
+        elif choice == "2":
+            while True:
+                print("\nMerge Sort Criteria:")
+                print("1. Sort by Price (Ascending)")
+                print("2. Sort by Rating (Descending)")
+                print("3. Sort by Number of Reviews (Descending)")
+                print("4. Back to Sorting Menu")
+                criteria = input("Select sorting criteria: ")
+                if criteria == "1":
+                    products = merge_sort(products, 0, len(products) - 1, key='price', reverse=False)
+                    print("\nProducts sorted by Price (Ascending):")
+                    display_products(products)
+                elif criteria == "2":
+                    products = merge_sort(products, 0, len(products) - 1, key='rating', reverse=True)
+                    print("\nProducts sorted by Rating (Descending):")
+                    display_products(products)
+                elif criteria == "3":
+                    products = merge_sort(products, 0, len(products) - 1, key='number_of_reviews', reverse=True)
+                    print("\nProducts sorted by Number of Reviews (Descending):")
+                    display_products(products)                    
+                elif criteria == "4":
+                    break
+                else:
+                    print("Invalid choice. Please try again.")
+        elif choice == "3":
+            print("Selected algorithm is not yet implemented.") #TODO
         elif choice == "4":
             return products
         else:
