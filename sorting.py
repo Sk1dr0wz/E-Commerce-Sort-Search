@@ -32,7 +32,7 @@ def quick_sort(products, key, reverse=False):
 
 def merge_sort(products, left, right, key, reverse=False): 
     """
-    Perform Merge Sort on a list of product objects based on the specified key.
+    Perform Merge Sort on a list of product objects partitioned by left object to right object based on the specified key.
 
     :param products: List of Product objects to sort.
     :param left: The left-most object of the current list partition.
