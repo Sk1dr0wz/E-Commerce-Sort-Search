@@ -1,5 +1,6 @@
 from data_handler import read_products, write_products
 from sorting import quick_sort, merge_sort
+from searching import linear_search
 
 def display_products(products):
     """Display a list of products in a readable format."""
@@ -67,6 +68,7 @@ def sorting_menu(products):
                     break
                 else:
                     print("Invalid choice. Please try again.")
+
         elif choice == "3":
             print("Selected algorithm is not yet implemented.") #TODO
         elif choice == "4":
@@ -78,13 +80,52 @@ def searching_menu(products):
     """Handle the searching menu."""
     while True:
         print("\nSearching Menu:")
-        print("1. Linear Search (not yet implemented)")
+        print("1. Linear Search")
         print("2. Binary Search (not yet implemented)")
         print("3. Back to Main Menu")
         choice = input("Select the searching algorithm: ")
 
-        if choice in ["1", "2"]:
-            print("Selected searching algorithm is not yet implemented.")
+        if choice == "1":
+            while True:
+                print("\nLinear Search Criteria:")
+                print("1. Search by Product ID")
+                print("2. Search by Category")
+                print("3. Search by Price Range")
+                print("4. Back to Searching Menu")
+                criteria = input("Select search criteria: ")
+
+                if criteria == "1":
+                    target = input("Enter the Product ID to search: ")
+                    results = linear_search(products, target, key='product_id', opt_target_max=None)
+                    if results:
+                        print("\nSearch results:")
+                        display_products(results)
+                    else:
+                        print("\nNo products match the search criteria.")
+                elif criteria == "2":
+                    target = input("Enter the Category to search: ")
+                    results = linear_search(products, target, key='category', opt_target_max=None)
+                    if results:
+                        print("\nSearch results:")
+                        display_products(results)
+                    else:
+                        print("\nNo products match the search criteria.")
+                elif criteria == "3":
+                    target_min = float(input("Enter the minimum Price: "))
+                    target_max = float(input("Enter the maximum Price: "))
+                    results = linear_search(products, target_min, key='price', opt_target_max=target_max)
+                    if results:
+                        print("\nSearch results:")
+                        display_products(results)
+                    else:
+                        print("\nNo products match the search criteria.")
+                elif criteria == "4":
+                    break
+                else:
+                    print("Invalid choice. Please try again.")
+
+        elif choice == "2":
+            print("Selected searching algorithm is not yet implemented.")   #TODO
         elif choice == "3":
             return
         else:
