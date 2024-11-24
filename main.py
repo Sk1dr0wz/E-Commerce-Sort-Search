@@ -1,6 +1,7 @@
 from data_handler import read_products, write_products
 from sorting import quick_sort, merge_sort
 from searching import linear_search
+from searching import linear_search, binary_search
 
 def display_products(products):
     """Display a list of products in a readable format."""
@@ -125,7 +126,44 @@ def searching_menu(products):
                     print("Invalid choice. Please try again.")
 
         elif choice == "2":
-            print("Selected searching algorithm is not yet implemented.")   #TODO
+            while True:
+                print("\nBinary Search Criteria:")
+                print("1. Search by Product ID")
+                print("2. Search by Category")
+                print("3. Search by Price Range")
+                print("4. Back to Searching Menu")
+                criteria = input("Select search criteria: ")
+
+                if criteria == "1":
+                    target = input("Enter the Product ID to search: ")
+                    results = binary_search(products, target, key='product_id')
+                    if results:
+                        print("\nSearch results:")
+                        display_products(results)
+                    else:
+                        print("\nNo products match the search criteria.")
+                elif criteria == "2":
+                    target = input("Enter the Category to search: ")
+                    results = binary_search(products, target, key='category')
+                    if results:
+                        print("\nSearch results:")
+                        display_products(results)
+                    else:
+                        print("\nNo products match the search criteria.")
+                elif criteria == "3":
+                    target_min = float(input("Enter the minimum Price: "))
+                    target_max = float(input("Enter the maximum Price: "))
+                    results = binary_search(products, target_min, key='price', opt_target_max=target_max)
+                    if results:
+                        print("\nSearch results:")
+                        display_products(results)
+                    else:
+                        print("\nNo products match the search criteria.")
+                elif criteria == "4":
+                    break
+                else:
+                    print("Invalid choice. Please try again.")
+
         elif choice == "3":
             return
         else:
