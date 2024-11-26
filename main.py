@@ -15,7 +15,7 @@ def sorting_menu(products):
         print("\nSorting Menu:")
         print("1. Quick Sort")
         print("2. Merge Sort")
-        print("3. Heap Sort (not yet implemented)")
+        print("3. Heap Sort")
         print("4. Back to Main Menu")
         choice = input("Select the sorting algorithm: ")
 
@@ -71,7 +71,31 @@ def sorting_menu(products):
                     print("Invalid choice. Please try again.")
 
         elif choice == "3":
-            print("Selected algorithm is not yet implemented.") #TODO
+             while True:
+                print("\nHeap Sort Criteria:")
+                print("1. Sort by Price (Ascending)")
+                print("2. Sort by Rating (Descending)")
+                print("3. Sort by Number of Reviews (Descending)")
+                print("4. Back to Sorting Menu")
+                criteria = input("Select sorting criteria: ")
+
+                if criteria == "1":
+                    products = quick_sort(products, key='price', reverse=False)
+                    print("\nProducts sorted by Price (Ascending):")
+                    display_products(products)
+                elif criteria == "2":
+                    products = quick_sort(products, key='rating', reverse=True)
+                    print("\nProducts sorted by Rating (Descending):")
+                    display_products(products)
+                elif criteria == "3":
+                    products = quick_sort(products, key='number_of_reviews', reverse=True)
+                    print("\nProducts sorted by Number of Reviews (Descending):")
+                    display_products(products)
+                elif criteria == "4":
+                    break
+                else:
+                    print("Invalid choice. Please try again.")
+
         elif choice == "4":
             return products
         else:
@@ -82,7 +106,7 @@ def searching_menu(products):
     while True:
         print("\nSearching Menu:")
         print("1. Linear Search")
-        print("2. Binary Search (not yet implemented)")
+        print("2. Binary Search")
         print("3. Back to Main Menu")
         choice = input("Select the searching algorithm: ")
 

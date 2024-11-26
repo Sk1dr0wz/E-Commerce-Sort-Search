@@ -101,3 +101,50 @@ def merge_sort(products, left, right, key, reverse=False):
         merge(products, left, middle, right, key, reverse)
 
     return products
+
+def heapify(arr, n, i, key, reverse=False):
+    """
+    Create a max-heap or min-heap based on the specified key.
+    :param arr: List of product objects.
+    :param n: Size of the heap.
+    :param i: Index of the current node.
+    :param key: Attribute to sort by (e.g., 'price', 'product_id').
+    :param reverse: True for descending order, False for ascending order.
+    """
+    largest = i  # Initialize largest as root
+    left = 2 * i + 1  # Left child index
+    right = 2 * i + 2  # Right child index
+
+    # Compare left child with root
+    if left < n and reverse ^ (getattr(arr[left], key) > getattr(arr[largest], key)):
+        largest = left
+
+    # Compare right child with current largest
+    if right < n and reverse ^ (getattr(arr[right], key) > getattr(arr[largest], key)):
+        largest = right
+
+    # Swap and continue heapifying if root is not largest
+    if largest != i:
+        arr[i], arr[largest] = arr[largest], arr[i]
+        heapify(arr, n, largest, key, reverse)
+
+
+def heap_sort(products, key, reverse=False):
+    """
+    Perform Heap Sort on a list of product objects.
+    :param products: List of Product objects to sort.
+    :param key: The attribute to sort by.
+    :param reverse: True for descending order, False for ascending order.
+    """
+    n = len(products)
+
+    # Build a heap
+    for i in range(n // 2 - 1, -1, -1):
+        heapify(products, n, i, key, reverse)
+
+    # Extract elements from the heap one by one
+    for i in range(n - 1, 0, -1):
+        products[i], products[0] = products[0], products[i]  # Swap
+        heapify(products, i, 0, key, reverse)
+
+    return products
